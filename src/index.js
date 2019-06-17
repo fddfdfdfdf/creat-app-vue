@@ -1,12 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import Vue from 'vue'
+import App from '@/App.vue'
+import VueRouter from 'vue-router'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+let  home = () => import(/* webpackChunkName: "home" */ "./home");
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+Vue.use(VueRouter)
+
+
+const router = new VueRouter({
+    routes:[{
+        path: '/home', component: home
+    },{
+        path:'*',redirect:'/home'
+    }]
+})
+new Vue({
+    el: '#app',
+    router,
+    render: h => h(App)
+});
